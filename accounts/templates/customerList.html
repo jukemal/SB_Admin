@@ -1,0 +1,55 @@
+{%  extends 'main.html' %}
+    
+      {% block content %}
+
+           {%  include 'navbar.html' %}
+       
+            {%  include 'side_menu_bar.html' %}
+                <div id="layoutSidenav_content">
+                    <main>
+                        <div class="container-fluid">
+                            <h4 class="mt-4" style="color:dimgray">Customers List</h1>
+                        <br>
+                    
+                      
+
+
+<div class="col-md-12  ">
+    <div class="card mb-8">
+        <div class="card-header">
+            <i class="fas fa-table mr-6"></i>
+                Customers Details
+        </div>
+        <div class="card-body">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                <table class="table  table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Customer ID</th>
+                                <th scope="col">Customer Name</th>
+                                <th scope="col">Customer Mobile</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">More Info</th>
+                            
+                            </tr>
+                        </thead>
+                    <tbody>  
+                        {% for customer_info in customers %}
+                            <tr>
+                                <td >{{customer_info.id}}</td>
+                                <td>{{customer_info.name}}</td>
+                                <td >{{customer_info.contact_number}}</td>
+                                <td >{{customer_info.email}}</td>
+                                <td >{{customer_info.Address}}</td>
+                                <td><a class="btn btn-sm btn-info" href="{% url 'customer_info' customer_info.id %}">View</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+             </div>
+        </div> 
+    </div>
+</div>
+{% endblock %}

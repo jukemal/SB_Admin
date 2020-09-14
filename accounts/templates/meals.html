@@ -1,0 +1,43 @@
+{%  extends 'main.html' %}
+    
+      {% block content %}
+
+           {%  include 'navbar.html' %}
+       
+            {%  include 'side_menu_bar.html' %}
+                <div id="layoutSidenav_content">
+                    <main>
+                        <div class="container-fluid">
+                            <h4 class="mt-4" style="color:dimgray">Food Items</h1>
+                        <br>
+                                
+            <div class="row ">
+                <table class="table">
+                    <thead class="thead-light ">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Tags</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in meals %}
+                            <tr>
+                                <td>{{i.meal_name}}</td>
+                                <td>{{i.price}}</td>
+                                <td>{{i.description}}</td>
+                                <td>
+                                    {% for t in i.tags.all %}
+                                        {{t}}
+                                    {% endfor %}
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            
+             
+          </div>
+        {% endblock  %}

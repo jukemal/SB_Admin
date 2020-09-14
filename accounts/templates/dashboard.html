@@ -1,0 +1,84 @@
+{%  extends 'main.html' %}
+    
+      {% block content %}
+
+      {%  include 'navbar.html' %}
+       
+      {%  include 'side_menu_bar.html' %}
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Dashboard</h1>
+                       <br>
+                  
+                       {%  include 'status.html' %}
+
+                       <br>
+                        <div class="row">
+                            <div class="card mb-8">
+                                <div class="card-header">
+                                    <i class="fas fa-table mr-6"></i>
+                                        Orders Details History
+                                </div>
+                                 <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                             <thead> 
+                                                 <tr>
+                                                    <th>Order ID</th>
+                                                    <th>Meal Name</th>
+                                                    <th>Meal Price</th>
+                                                    <th>Start Date</th>
+                                                    <th>Customer Name</th>
+                                                    <th>Contact Number</th>
+                                                    <th>Order Status</th>
+                                                    <th>UPDATE</th>
+                                                    <th>REMOVE</th>
+                                                </tr>
+                                            </thead>
+                                        
+                                            <tbody>
+                                                {% for order in orders %}
+                                                <tr>
+                                                    <td>{{order.id}}</td>
+                                                    <td>{{order.meal.meal_name}}</td>
+                                                    <td>{{order.meal.price}}</td>
+                                                    <td>{{order.date_created}}</td>
+                                                    <td>{{order.customer}}</td>                 
+                                                    <td>{{order.customer.contact_number}}</td>
+                                                    <td>{{order.status}}</td>
+                                                    <td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">Update</a></td>
+                                                    <td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete</a></td>
+                                                    
+                            
+                                                </tr>
+                                                
+                                            {% endfor %} 
+                             
+                                            
+                                             </tbody>
+                                        </table>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+      
+  
+      
+         
+        {% endblock %}

@@ -1,0 +1,60 @@
+
+{%  extends 'main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+{%  include 'navbar.html' %}  
+
+<div class="row justify-content-center mt-5 " >
+    <div class="col-md-5 "  >
+		<div class="contact-info">
+			<h4>Add a new Order of <span style="color:purple;font-size:25px"> {{request.user}}</span> </h4>
+
+			<h6>Tastes great! Eating something delicious right now?</h6>
+			<br>
+			<img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80" alt="image" height="400" width="500"/>
+
+
+      		</div>
+		</div>
+
+    <div class="col-md-5">
+      <!-- {% if error %}
+      <div class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+      {% endif %} -->
+      <h3>Create Order</h3>
+      <br>
+	  <form method="POST" action="">
+
+        {% csrf_token %}
+
+        <div class="row">
+          <div class="col-6">
+            {{order_form.customer|as_crispy_field}}
+          </div>
+          <div class="col-6">
+            {{order_form.meal|as_crispy_field}}
+          </div>
+        </div>
+
+        {{order_form.status|as_crispy_field}}
+        <div class="row">
+          <div class="col-6">
+           
+            {{order_form.qty|as_crispy_field}}
+		  </div>
+		  
+
+        </div>
+
+
+        <button type="submit" class="btn btn-primary button" value="save" > Create </button>
+      </form>
+    </div>
+
+  </div>
+
+
+{% endblock %}

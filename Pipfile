@@ -1,0 +1,25 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+autopep8 = "*"
+rope = "*"
+
+[packages]
+django = "*"
+django-grappelli = "*"
+python-dotenv = "*"
+django-cors-headers = "*"
+whitenoise = "*"
+gunicorn = "*"
+werkzeug = "*"
+pillow = "*"
+psycopg2 = "*"
+django-crispy-forms = "*"
+django-extensions = "*"
+
+[requires]
+python_version = "3.8"

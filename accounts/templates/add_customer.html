@@ -1,0 +1,61 @@
+{%  extends 'main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+{%  include 'navbar.html' %}
+
+<div class="row justify-content-center mt-5 " >
+    <div class="col-md-5 "  >
+		<div class="contact-info">
+			<h3>Add a new customer</h3>
+
+			<h6>We would love to work with you !</h6>
+			<br>
+			<img src="https://images.unsplash.com/photo-1518135714426-c18f5ffb6f4d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1973&q=80" alt="image" height="400" width="500"/>
+
+
+      		</div>
+		</div>
+
+    <div class="col-md-5">
+      <!-- {% if error %}
+      <div class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+      {% endif %} -->
+      <h3>Create Customer</h3>
+      <br>
+	  <form method="POST" action="">
+
+        {% csrf_token %}
+
+        <div class="row">
+          <div class="col-6">
+            {{customer_form.name|as_crispy_field}}
+          </div>
+          <div class="col-6">
+            {{customer_form.contact_number|as_crispy_field}}
+          </div>
+        </div>
+
+        {{customer_form.Address|as_crispy_field}}
+        <div class="row">
+          <div class="col-6">
+           
+            {{customer_form.email|as_crispy_field}}
+		  </div>
+
+
+        </div>
+
+
+        <button type="submit" class="btn btn-primary button" value="save" > Create </button>
+      </form>
+    </div>
+
+  </div>
+
+
+
+
+{% endblock %}
