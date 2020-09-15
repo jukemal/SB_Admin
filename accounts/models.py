@@ -5,43 +5,49 @@ from django.contrib.auth.models import User
 
 
 class Customer(models.Model):
-		name = models.CharField(max_length=200, null=True)
-		contact_number = models.CharField(max_length=200, null=True)
-		email = models.CharField(max_length=200, null=True)
-		Address = models.CharField(max_length=200, null=True)
-		user = models.ForeignKey(User,on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, unique=True)
+    contact_number = models.CharField(max_length=200)
+    email = models.CharField(max_length=200)
+    address = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return "Customer : "+self.name
 
-		def __str__(self):            
-			return self.name        
 
 class Tag(models.Model):
-		name = models.CharField(max_length=200, null=True)
+    name = models.CharField(max_length=200)
 
-		def __str__(self):
-			return self.name 
-			
+    def __str__(self):
+        return self.name
+
 
 class Meal(models.Model):
-		meal_name=models.CharField(max_length=200, null=True)
-		price = models.FloatField(null=True)		
-		description = models.CharField(max_length=200, null=True)
-		tags = models.ManyToManyField(Tag)
-		user = models.ForeignKey(User,on_delete=models.CASCADE)
-	
-		def __str__(self):                                      
-			return self.meal_name                                
-                                                   
-class Order(models.Model):                                
-		STATUS = (
-				('Pending', 'Pending'),
-				('Out for delivery', 'Out for delivery'),
-				('Delivered', 'Delivered'),
-				)
+    meal_name = models.CharField(max_length=200, unique=True)
+    price = models.FloatField(null=True)
+    description = models.CharField(max_length=200, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-		customer = models.ForeignKey(Customer, null=True, on_delete= models.SET_NULL)
-		meal = models.ForeignKey(Meal, null=True, on_delete= models.SET_NULL)
-		date_created = models.DateTimeField(auto_now_add=True, null=True)
-		qty=models.IntegerField(null=True)
-		status = models.CharField(max_length=200, null=True, choices=STATUS)
-		user = models.ForeignKey(User,on_delete=models.CASCADE)
+    def __str__(self):
+        return "Meal : "+self.meal_name
+
+
+class Order(models.Model):
+    STATUS = (
+        ('Pending', 'Pending'),
+        ('Out for delivery', 'Out for delivery'),
+        ('Delivered', 'Delivered'),
+    )
+
+    customer = models.ForeignKey(
+        Customer, on_delete=models.SET_NULL, null=True)
+    meal = models.ForeignKey(Meal, on_delete=models.SET_NULL, null=True)
+    qty = models.IntegerField()
+    datetime = models.DateTimeField()
+    status = models.CharField(max_length=200, choices=STATUS)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "Order : "+self.meal.meal_name+", Quantity : "+str(self.qty)

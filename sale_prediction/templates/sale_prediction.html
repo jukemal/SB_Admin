@@ -1,0 +1,126 @@
+{%  extends 'main.html' %}
+    
+      {% block content %}
+
+           {%  include 'navbar.html' %}
+       
+            {%  include 'side_menu_bar.html' %}
+                <div id="layoutSidenav_content">
+                    <main>
+                        <div class="container-fluid m-5">
+                            <h4 class="mt-4" style="color:dimgray">Sale Prediction -</h1>
+
+                            <div class="row m-5">
+                                <div style="position: relative; height:500px; width:95vw">
+                                    <canvas id="chart"></canvas>
+                                </div>
+                            </div>
+                                
+                            <div class="row">
+                                <table class="table table-hover w-100">
+                                    <thead class="thead-light ">
+                                    <tr>
+                                        <th scope="row">#</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in real %}
+                                            <tr>
+                                                <th scope="row">{{forloop.counter}}</th>
+                                                <td>{{i.x}}</td>
+                                                <td>{{i.y}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        {% for i in predicted %}
+                                            <tr class="table-success">
+                                                <th scope="row">{{forloop.counter}}</th>
+                                                <td>{{i.x}}</td>
+                                                <td>{{i.y}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+             
+                        </div>
+                </main>
+          </div>
+
+          <script>
+            var ctx = document.getElementById('chart');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [
+                    {
+                        label: "Real",
+                        fill: false,
+                        lineTension: 0.1,
+                        borderColor: "green",
+                        borderCapStyle: 'square',
+                        borderJoinStyle: 'miter',
+                        borderWidth:3,
+                        pointBorderColor: "green",
+                        pointBackgroundColor: "green",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 8,
+                        pointHoverBackgroundColor: "yellow",
+                        pointHoverBorderColor: "yellow",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10,
+                        data: {{ real|safe }}
+                    },
+                    {
+                        label: "Predicted",
+                        fill: false,
+                        lineTension: 0.1,
+                        borderColor: "red",
+                        borderCapStyle: 'square',
+                        borderJoinStyle: 'miter',
+                        borderWidth:3,
+                        pointBorderColor: "red",
+                        pointBackgroundColor: "red",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 8,
+                        pointHoverBackgroundColor: "yellow",
+                        pointHoverBorderColor: "yellow",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10,
+                        data: {{ predicted|safe }}
+                    }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            type: 'time',
+                            distribution: 'linear',
+                            time: {
+                                displayFormats: {
+                                    'millisecond': 'h:mm:ss.SSS a',
+                                    'second': 'h:mm:ss a',
+                                    'minute': 'h:mm a',
+                                    'hour': 'MMM D',
+                                    'day': 'MM/YY',
+                                    'week': 'll',
+                                    'month': 'YYYY MMM',
+                                    'quarter': '[Q]Q - YYYY',
+                                    'year': 'YYYY',
+                                },
+                                tooltipFormat: "YYYY-MMM-DD"
+                            }
+                            } ]
+                    },
+                    legend: {
+                        display: true,
+                    }
+                }
+            });
+            </script>
+        {% endblock  %}
