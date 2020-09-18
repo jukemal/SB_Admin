@@ -1,17 +1,21 @@
 # SB Admin
 
-- Install pipenv if not available.
-
 - Create .env file according to .env.example file to set environment variables.
+
+- Need Tensorflow 2.2.0 to work properly.
 
 - Then run following commands in given order to start project.
 
 ```
-pipenv install --dev
+conda create --name ml python=3.7
 ```
 
 ```
-pipenv shell
+conda activate ml
+```
+
+```
+pip install -r requirements.txt
 ```
 
 ```
